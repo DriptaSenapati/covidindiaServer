@@ -212,7 +212,9 @@ $(document).ready(function () {
   );
 });
 function jvmGraph(data, Colormin, colormax, tooltip) {
-  if (window.chart) window.chart.remove();
+  if (window.chart) {
+    window.chart.remove();
+  }
   window.chart = new jvm.Map({
     container: $("#map"),
     map: "in_mill",

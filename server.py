@@ -845,6 +845,14 @@ def download_file_csv(filename):
         abort(404)
 
 
+@app.route('/sitemap.xml', methods=['GET', 'POST'])
+def download():
+    try:
+        return send_from_directory(app.config["CLIENT_DATA"], filename='sitemap.xml', as_attachment=True)
+    except FileNotFoundError:
+        abort(404)
+
+
 @app.route('/refresh/<endpoint>', methods=['GET'])
 def refresh(endpoint):
     global init, demo, filter_data
