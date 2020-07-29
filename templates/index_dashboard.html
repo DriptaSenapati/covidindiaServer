@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en" class="animate__animated fadeIn">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="shortcut icon"
+      type="image/png"
+      href="https://pngimg.com/uploads/coronavirus/coronavirus_PNG46.png"
+    />
+    <link
+      rel="stylesheet"
+      href="{{url_for('static', filename='css/style_dashboard.v2.css')}}"
+    />
+    <link
+      rel="stylesheet"
+      href="{{url_for('static', filename='css/nice-select-home.css')}}"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <script
+      defer
+      src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"
+    ></script>
+    <!-- <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script> -->
+    <link
+      rel="stylesheet"
+      href="{{url_for('static', filename='css/jquery-jvectormap-2.0.5.css')}}"
+      type="text/css"
+      media="screen"
+    />
+    <script
+      defer
+      src="{{url_for('static', filename='js/jquery.nice-select-home.min.js')}}"
+    ></script>
+    <script
+      defer
+      src="{{url_for('static', filename='js/jquery-jvectormap-2.0.5.min.js')}}"
+    ></script>
+    <script
+      defer
+      src="{{url_for('static', filename='js/jquery-jvectormap-in-mill.js')}}"
+    ></script>
+    <script
+      defer
+      type="text/javascript"
+      src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"
+    ></script>
+    <script
+      defer
+      id="MathJax-script"
+      async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
+    ></script>
+    <script
+      defer
+      src="{{url_for('static', filename='js/dashboard.v2.js')}}"
+    ></script>
+    <title>Home|Covidindia Server</title>
+  </head>
+  <body onload="myloader()">
+    <div id="loader"></div>
+    <div class="container">
+      <nav class="nav-bar">
+        <div class="hamburger-menu">
+          <div class="line line-1"></div>
+          <div class="line line-2"></div>
+          <div class="line line-3"></div>
+        </div>
+        <ul class="nav-list">
+          <li class="nav-item">
+            <a href="/">Home</a>
+          </li>
+          <li class="nav-item">
+            <a href="{{ url_for('data')}}">Data</a>
+          </li>
+          <li class="nav-item">
+            <a href="{{ url_for('state')}}">Data by State</a>
+          </li>
+          <li class="nav-item">
+            <a href="{{ url_for('demography')}}">Demography</a>
+          </li>
+          <li class="nav-item">
+            <a href="{{ url_for('rank')}}">Ranking</a>
+          </li>
+          <li class="nav-item">
+            <a href="{{ url_for('analysis')}}">Analysis</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+    <div class="description">
+      <h1 class="animate__animated animate__zoomIn" id="head_1">
+        An interactive overview of <mark>Covid-19</mark> pandemic in India
+      </h1>
+      <img
+        src="{{url_for('static', filename='img/corona1.jpg')}}"
+        alt="corona"
+        id="dashboard-image"
+        width="450"
+        height="100"
+      />
+      <h1 class="map_head">Event wise India Color Map</h1>
+    </div>
+    <div class="flex-map-dash">
+      <div
+        id="map"
+        style="width: 53vw; height: 70vh;"
+        class="dashborad-section animate__animated animate__zoomIn"
+      ></div>
+      <div class="dashborad-section animate__animated animate__zoomIn">
+        <h1 class="dashboard-head">
+          Dashboard(Updated upto {{date_1}})
+        </h1>
+        <div class="main-dashboard">
+          <div class="confirmed-1">
+            <h2>Confirmed cases</h2>
+            <p>{{conf_number}}</p>
+            <p class="up_text">
+              <span style="color: rgb(255, 78, 101);">&#8593;</span
+              >{{up_text_conf}}
+            </p>
+          </div>
+          <div class="Active-1">
+            <h2>Active<br />cases</h2>
+            <p>{{active_number}}</p>
+            <p class="up_active">
+              <span style="color: rgb(255, 78, 101);">&#8593;</span
+              >{{up_text_active}}
+            </p>
+          </div>
+          <div class="Recovered-1">
+            <h2>Recovery cases</h2>
+            <p>{{recover_number}}</p>
+            <p class="up_recover">
+              <span style="color: rgb(255, 78, 101);">&#8593;</span
+              >{{up_text_recover}}
+            </p>
+          </div>
+          <div class="Deceased-1">
+            <h2>Deceased cases</h2>
+            <p>{{death_number}}</p>
+            <p class="up_death">
+              <span style="color: rgb(255, 78, 101);">&#8593;</span
+              >{{up_text_death}}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="dashboard-section-2 animate__animated animate__zoomIn animate__delay-0.9s"
+    >
+      <h1>More Important statistics</h1>
+      <div class="statistic n-1">
+        <h2 id="nh-11">Highest Confirmed</h2>
+        <div class="ns-11">
+          <span style="color: rgb(255, 78, 101);">{{number_high_conf}}</span> in
+          <span style="color: rgb(255, 78, 101);">{{state_high_conf}}</span>
+          <div style="height: 100%; width: 100%;">
+            <canvas id="graph" height="300" width="600"></canvas>
+          </div>
+        </div>
+      </div>
+      <div class="statistic n-2">
+        <h2 id="nh-21">Highest Deceased</h2>
+        <div class="ns-21">
+          <span style="color: rgb(255, 78, 101);">{{number_high_death}}</span>
+          in
+          <span style="color: rgb(255, 78, 101);">{{state_high_death}}</span>
+          <div style="height: 100%; width: 100%;">
+            <canvas id="graph_death" height="300" width="600"></canvas>
+          </div>
+        </div>
+      </div>
+      <div class="statistic n-3">
+        <h2 id="nh-31">Highest Recovered</h2>
+        <div class="ns-31">
+          <span style="color: rgb(255, 78, 101);">{{number_high_recover}}</span>
+          in
+          <span style="color: rgb(255, 78, 101);">{{state_high_recover}}</span>
+          <div style="height: 100%; width: 100%;">
+            <canvas id="graph_recover" height="300" width="600"></canvas>
+          </div>
+        </div>
+      </div>
+      <div class="n4-wrapper">
+        <div class="statistic n-4">
+          <h2 id="nh-41">Highest Confirmed to Test ratio(F)</h2>
+          <div class="ns-41">
+            <div
+              class="g-2-math"
+              style="
+                pointer-events: none;
+                pointer-events: none;
+                height: auto;
+                font-size: 26px;
+                margin-bottom: 58px;
+              "
+            >
+              \[T=\frac{Totaltested}{Population}\times10000\]
+            </div>
+            <span style="color: rgb(255, 78, 101);"
+              >{{number_high_conftest}}</span
+            >
+            in
+            <span style="color: rgb(255, 78, 101);"
+              >{{state_high_conftest}}</span
+            >
+            <a href="/analysis#chart1">Click here for visualization</a>
+          </div>
+        </div>
+        <div class="statistic n-5">
+          <h2 id="nh-51">Highest Deceased rate(D)</h2>
+          <div class="ns-51">
+            <div
+              class="g-3-math"
+              style="
+                pointer-events: none;
+                height: auto;
+                font-size: 26px;
+                margin-bottom: 58px;
+              "
+            >
+              \[D=\frac{Deceased}{Confirmed}\times100\]
+            </div>
+            <span style="color: rgb(255, 78, 101);"
+              >{{number_high_deathrate}}</span
+            >
+            in
+            <span style="color: rgb(255, 78, 101);"
+              >{{state_high_deathrate}}</span
+            >
+            <a href="/analysis#chart3">Click here for visualization</a>
+          </div>
+        </div>
+        <div class="statistic n-6">
+          <h2 id="nh-61">Highest Recovery rate(R)</h2>
+          <div class="ns-61">
+            <div
+              class="g-4-math"
+              style="
+                pointer-events: none;
+                height: auto;
+                font-size: 26px;
+                margin-bottom: 58px;
+              "
+            >
+              \[R=\frac{Recovered}{Confirmed}\times100\]
+            </div>
+            <span style="color: rgb(255, 78, 101);"
+              >{{number_high_recoverrate}}</span
+            >
+            in
+            <span style="color: rgb(255, 78, 101);"
+              >{{state_high_recoverrate}}</span
+            >
+            <a href="/analysis#chart2">Click here for visualization</a>
+          </div>
+        </div>
+      </div>
+      <div class="n7-wrapper">
+        <div class="statistic n-7">
+          <h2 id="nh-71">India's Highest Confirmed spike in one day</h2>
+          <div class="ns-71">
+            <span style="color: rgb(255, 78, 101);">{{high_occur}}</span>
+            in
+            <span style="color: rgb(255, 78, 101);">{{high_occur_date}}</span>
+          </div>
+        </div>
+        <div class="statistic n-8">
+          <h2 id="nh-81">India's Highest Recovery spike in one day</h2>
+          <div class="ns-81">
+            <span style="color: rgb(255, 78, 101);">{{high_occur_rec}}</span>
+            in
+            <span style="color: rgb(255, 78, 101);"
+              >{{high_occur_date_rec}}</span
+            >
+          </div>
+        </div>
+        <div class="statistic n-9">
+          <h2 id="nh-91">India's Highest Deceased spike in one day</h2>
+          <div class="ns-91">
+            <span style="color: rgb(255, 78, 101);">{{high_occur_death}}</span>
+            in
+            <span style="color: rgb(255, 78, 101);"
+              >{{high_occur_death_date}}</span
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+    <footer class="footer">
+      <h2 style="color: white; text-align: center;">
+        <i class="fa fa-cubes" style="margin-right: 15px;"></i>About us
+      </h2>
+      This website has specially been designed for the COVID-19 analysis. This
+      is an interactive window which allows it's user to know about the ongoing
+      situation of pandemic in our country. This website has been created by
+      <a
+        href="https://www.linkedin.com/in/dripta-senapati-088b5b199/"
+        target="_blank"
+        style="text-decoration: none;"
+        >Dripta Senapati</a
+      >
+      in collaboration with
+      <a
+        href="https://www.linkedin.com/in/inder-kaur-a11691158/"
+        target="_blank"
+        style="text-decoration: none;"
+        >Inder Kaur</a
+      >
+      as a part of our MSc final year project under the University of
+      Kalyani.<br />
+      The users who are keen to analyze the the growth or spread of the pandemic
+      can check the
+      <a href="{{ url_for('analysis')}}" style="text-decoration: none;"
+        >Analysis</a
+      >
+      tab. The
+      <a href="{{ url_for('data')}}" style="text-decoration: none;">Data</a>,
+      <a href="{{ url_for('state')}}" style="text-decoration: none;"
+        >Data by State</a
+      >,
+      <a href="{{ url_for('demography')}}" style="text-decoration: none;"
+        >Demography</a
+      >
+      tabs help the users to get the required data about COVID-19 spread in
+      India as a whole, with respect to the date or state or gender of your
+      choice. The
+      <a href="{{ url_for('rank')}}" style="text-decoration: none;">Ranking</a>
+      tab mainly gives the users the top or bottom ranked states with respect to
+      the pandemic.
+      <p>
+        Contributors:
+        <figure style="display: flex; justify-content: center;">
+          <div style="margin: 10px;">
+            <img
+              src="{{url_for('static', filename='img/dripta.jpg')}}"
+              style="width: 100px; height: 100px; margin: auto;"
+            />
+            <figcaption>
+              Dripta Senapati
+            </figcaption>
+          </div>
+          <div style="margin: 10px;">
+            <img
+              src="{{url_for('static', filename='img/inder.jpg')}}"
+              style="width: 100px; height: 100px; margin: auto;"
+            />
+            <figcaption>Inder Kaur</figcaption>
+          </div>
+        </figure>
+      </p>
+      <p>
+        For any type of query or want to give feedback please go to
+        <a
+          href="https://docs.google.com/forms/d/1BHXju90KzhRzLF-8KSRoZoIqtmywJHubSIhmqHfEvYg/edit"
+          style="text-decoration: none;"
+          >feedback</a
+        >
+      </p>
+    </footer>
+  </body>
+</html>

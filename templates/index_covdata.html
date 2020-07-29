@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="shortcut icon"
+      type="image/png"
+      href="https://pngimg.com/uploads/coronavirus/coronavirus_PNG46.png"
+    />
+    <link
+      rel="stylesheet"
+      href="{{url_for('static', filename='style_covdata.css')}}"
+    />
+    <link
+      rel="stylesheet"
+      href="{{url_for('static', filename='nice-select-home.css')}}"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css"
+    />
+    <script defer src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script
+      defer
+      src="{{url_for('static', filename='jquery.nice-select-home.min.js')}}"
+    ></script>
+    <script defer src="{{url_for('static', filename='covdata.js')}}"></script>
+    <title>Covidindia Server</title>
+  </head>
+  <body>
+    <div class="contain">
+      <nav class="nav-bar">
+        <div class="hamburger-menu">
+          <div class="line line-1"></div>
+          <div class="line line-2"></div>
+          <div class="line line-3"></div>
+        </div>
+        <ul class="nav-list">
+          <li class="nav-item">
+            <a href="/">Home</a>
+          </li>
+          <li class="nav-item">
+            <a href="{{ url_for('data')}}">Data</a>
+          </li>
+          <li class="nav-item">
+            <a href="{{ url_for('state')}}">Data by State</a>
+          </li>
+          <li class="nav-item">
+            <a href="{{ url_for('demography')}}">Demography</a>
+          </li>
+          <li class="nav-item">
+            <a href="{{ url_for('rank')}}">Ranking</a>
+          </li>
+          <li class="nav-item">
+            <a href="{{ url_for('analysis')}}">Analysis</a>
+          </li>
+          <li class="nav-item">
+            <a href="{{ url_for('covdata')}}">Covdata Package</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+    <div class="package">
+      <h1>Covdata Documentation</h1>
+      <p class="description">
+        This covidindia Module has the power to bring all the data related to
+        Covid-19 outbreak in India in a tabular form. This module will bring the
+        whole set of raw data in a date-wise and processed format
+        <a href="https://github.com/kalyaniuniversity/COVID-19-Datasets"
+          >from the COVID-19 Indian Dataset maintained by University of
+          Kalyani</a
+        >, which will be easier to deal with. Once installed, we can get an
+        up-to-date information about the Covid-19 affected people, till the day
+        the data is available at the source. We can visualize the data of our
+        choice for any given range of dates. It is capable of giving information
+        about the total number of confirmed, recovered and deceased patients,
+        between any two dates, of any city, district or related to any
+        particular gender (male/female). We can also visualize the whole
+        up-to-date data without using any aforesaid filters using our module.
+      </p>
+      <h2>Usage</h2>
+      <p class="usage">
+        It gathers information from our own maintained database. Database data
+        are collected from various websites, news channels and
+        <a href="https://www.covid19india.org/"
+          >covid19india.org crowdsourcing initiative</a
+        >. From the collected data this module will help user to represent in
+        user friendly format with all types of filters in one place. No need to
+        search any website. Just use this module for India based Covid-19
+        projects.
+      </p>
+      <h2>Installation</h2>
+      <div class="container installation">
+        <p>For windows: pip install covdata</p>
+        <p>For mac:pip3 install covdata</p>
+      </div>
+      <h2>Initializing covdata</h2>
+      <p class="Initialize">
+        At first initialize the covidindia module to collect all data from the
+        source.It is very important as all other classes are dependent on this
+        class instance.To do that write the following code
+      </p>
+      <div class="container initcode">
+        <p>from covdata.covidindia import initializer</p>
+        <p>
+          init=initializer(silent=False) &nbsp;
+          <span
+            >#It will make a dashboard type display in console. Use silent to be
+            true to print nothing in console</span
+          >
+        </p>
+        <p>
+          collectedData=init.show_data(of='Confirmed',daily=False) &nbsp;
+          <span>#This will show the collected Confirmed data</span>
+        </p>
+        <p>
+          collectedData=init.show_data(of='Confirmed',daily=True) &nbsp;
+          <span
+            >#This will show the collected Confirmed data as daily count
+            basis</span
+          >
+        </p>
+      </div>
+      <p class="note_initcode">
+        *Here of argument can take 3 values Confirmed,Recovered,Death to see all
+        respective COVID-19-Datasets
+      </p>
+      <h2>Demography Data</h2>
+      <p class="demography">
+        In that class user can see the count of affected patients from different
+        states, districts and cities along with affected date and gender of the
+        patients.To do this write the following
+      </p>
+      <div class="container democode">
+        <p>from covdata.covidindia import initializer,Demographic_overview</p>
+        <p>init=initializer(silent=False)</p>
+        <p>
+          data=Demographic_overview(init) &nbsp;
+          <span>#create instance object of Demographic_overview class</span>
+        </p>
+        <p>
+          wb_data=data.demography(place='wb',date='1/06/2020') &nbsp;
+          <span
+            >#gives the data of West Bengal of 1/06/2020.State code or state
+            name can also be used</span
+          >
+        </p>
+        <p>
+          nagpur_data=data.demography(place='Nagpur',date='all') &nbsp;
+          <span>#gives the data of nagpur for all dates</span>
+        </p>
+        <p>
+          all_data=data.demography()&nbsp;
+          <span>#gives all the data for all states and all dates</span>
+        </p>
+        <p>
+          between_data=data.demography(place='mh',date='5/5/2020-10/5/2020')
+          &nbsp;
+          <span
+            >#gives the data of Maharashtra between 5/5/2020 and 10/5/2020</span
+          >
+        </p>
+      </div>
+      <p class="note_demography">
+        *place argument can take state name , district name or city name.If data
+        is not found of that particular state,district or city a no data found
+        error will be printed in console
+      </p>
+      <div class="filter">
+        <h2>Get the filtered data</h2>
+        <h3>Get data of a particular state</h3>
+        <p class="state_data">
+          Here the data of states can be seen as daily or cumulative basis
+        </p>
+        <div class="container state">
+          <p>filter_data=Data(init)</p>
+          <p>
+            Maharashtra_data=filter_data.get_dataset_state(state='mh',daily=False)
+            &nbsp;
+            <span
+              >#Get cumulative data of Maharashtra.state name or state code both
+              are applicable.
+            </span>
+          </p>
+        </div>
+        <h3>Get data for a particular date</h3>
+        <div class="container date_state">
+          <p>date_data=filter_data.get_dataset_by_date(date=5/06/2020)</p>
+        </div>
+        <h3>Get cumulative data between two dates</h3>
+        <div class="container two_date_data">
+          <p>
+            between_date=filter_data.get_cum_dataset_between_date(4/6/2020,
+            9/6/2020, by='Total Confirmed') &nbsp;
+            <span
+              >#Gives the cumulative data between 4/6/2020 and 9/6/2020 of Total
+              Confirmed data.
+            </span>
+          </p>
+        </div>
+        <p>
+          *by parameters are 'Total Confirmed' or 'Total Recovered' or 'Total
+          Death'.
+        </p>
+        <h3>Get daily count between two dates</h3>
+        <div class="container daily_two_date">
+          <p>
+            between_date_daily=filter_data.get_count_between_date(4/6/2020,
+            9/6/2020, by='Confirmed') &nbsp;
+            <span
+              >#Gives the daily data between 4/6/2020 and 9/6/2020 of Confirmed
+              data.
+            </span>
+          </p>
+        </div>
+        <p>*by parameters are 'Confirmed' or 'Recovered' or 'Death'.</p>
+        <h3>Get daily data for a particular date</h3>
+        <div class="container date_daily">
+          <p>
+            date_daily=filter_data.get_count_by_date(by='Confirmed',date='8/5/2020')
+            &nbsp;
+            <span>#Gives the daily data on 5/5/2020 of Confirmed data. </span>
+          </p>
+        </div>
+        <p>*by parameters are 'Confirmed' or 'Recovered' or 'Death'.</p>
+      </div>
+      <h3>Get top/bottom ranked states or days</h3>
+      <div class="container rank">
+        <p>
+          filter_data.rank(num=5, by='Total Recovered', kind='top',
+          cumulative=True, date='8/5/2020') &nbsp;
+          <span
+            >#Gives top 5 states having highest recovery till date 8/5/2020
+          </span>
+        </p>
+        <p>
+          rank(num=5, by='Total Recovered', kind='top', cumulative=False,
+          date='8/5/2020') &nbsp;
+          <span
+            >#Gives top 5 states having highest recovery on date 8/5/2020
+          </span>
+        </p>
+      </div>
+      <p>
+        *by parameters are 'Total Confirmed' or 'Total Recovered' or 'Total
+        Death'.If cumulative is False and date is not given then it returns a
+        dictionary. <br />
+        kind parameter can take 'top' and 'bottom'
+      </p>
+      <h3>Get test Dataset</h3>
+      <div class="container test">
+        <p>
+          filter_data.tested_subject_data(date=None,state=None) &nbsp;
+          <span>#Gives all tested data for all dates and for all states </span>
+        </p>
+        <p>
+          filter_data.tested_subject_data(date='9/5/2020',state=None) &nbsp;
+          <span>#Gives tested data for all states on 9/5/2020 </span>
+        </p>
+        <p>
+          filter_data.tested_subject_data(date='9/5/2020',state='Maharashtra')
+          &nbsp;
+          <span
+            >#Gives tested data for Maharashtra on 9/5/2020 (state code also
+            applicable)</span
+          >
+        </p>
+      </div>
+    </div>
+    <div class="graph">
+      <h2>Get graphical representation of the data</h2>
+      <h3>Initialize visualizer</h3>
+      <div class="container graph_init">
+        <p>graph=visualizer(init)</p>
+      </div>
+      <h3>Visualize all confirmed, recovered,deceased data</h3>
+      <div class="container graph_whole">
+        <p>
+          graph.whole(title='corona spread of India',daily=False) &nbsp;
+          <span
+            >#Gives a subplot consisting of 3 graphs using cumulative data
+            having title 'corona spread of India'
+          </span>
+        </p>
+        <p>
+          graph.whole(title='Daily corona spread of India',daily=True) &nbsp;
+          <span
+            >#Gives a subplot consisting of 3 graphs using Daily data having
+            title 'Daily corona spread of India'
+          </span>
+        </p>
+      </div>
+      <h3>
+        Visualize last and first n days confirmed, recovered,deceased data
+      </h3>
+      <div class="container graph_tail">
+        <p>
+          graph.tail(num=10, title='last 10 days',daily=False) &nbsp;
+          <span
+            >#Gives a subplot consisting of 3 graphs using last 10 days
+            cumulative data having title 'last 10 days'
+          </span>
+        </p>
+        <p>
+          graph.head(num=10, title='first 10 days',daily=False) &nbsp;
+          <span
+            >#Gives a subplot consisting of 3 graphs using first 10 days
+            cumulative data having title 'last 10 days'
+          </span>
+        </p>
+      </div>
+      <h3>Visualize data between two dates</h3>
+      <div class="container graph_date">
+        <p>
+          graph.graph_by_date(startDate=2/2/2020, endDate=5/6/2020,
+          state='wb',title='WestBengal', daily=True) &nbsp;
+          <span
+            >#Gives a subplot consisting of 3 graphs using data between 2/2/2020
+            and 5/6/2020 of WestBengal on daily basis
+          </span>
+        </p>
+      </div>
+    </div>
+    <div class="package_cli">
+      <h1>Command Line Interface</h1>
+      <div class="details">
+        Covdata package is also implemented with CLI commands that will be helps
+        the users to get information more quickly.
+      </div>
+      <div class="container cliMethods">
+        <p>
+          #get help <br />
+          covdata -h
+        </p>
+
+        <p>
+          #get dataset of user choice <br />
+          covdata -f Total_Confirmed --options show_data
+        </p>
+
+        <p>
+          #save the above data as csv <br />
+          covdata -f Total_Confirmed --options show_data --save
+          \where\to\save\filename.csv
+        </p>
+
+        <p>
+          #get demographic overview by place and date <br />
+          covdata -p wb -d all --options demography #please use state code.here
+          'wb' means 'West bengal'
+        </p>
+
+        <p>
+          #get above data for fast n rows for simplicity <br />
+          covdata -p wb -d all --options demography -H 10 #head(10)
+        </p>
+
+        <p>
+          #get data by state <br />
+          covdata -s mp --options state_dataset #for madhyapradesh
+        </p>
+
+        <p>
+          #get daily count data for any state <br />
+          covdata -s mp --options state_dataset -D y #daily basis count for
+          madhyapradesh.
+        </p>
+
+        <p>
+          #get daily count for all states of total confirmed/total
+          recovered/total death <br />
+          covdata -f Total_Confirmed --options state_dataset #Total Confirmed
+          cases for daily basis for all states.
+        </p>
+
+        <p>
+          #get data by date <br />
+          covdata -d 10/4/2020 --options data_by_date
+        </p>
+
+        <p>
+          #get count by date <br />
+          covdata -d 11/4/2020 -f Total_Recovered --options count_by_date
+        </p>
+
+        <p>
+          #get top n values in India <br />
+          covdata -r top -n 10 -f Total_Confirmed --options rank #top 10 values
+          of total confirmed cases as cumulative
+        </p>
+
+        <p>
+          #get top 10 values of Total Recovered on the basis of daily counts for
+          any date <br />
+          covdata -r top -n 10 -f Total_Recovered -D y --options rank -d
+          15/3/2020
+        </p>
+
+        <p>
+          #get bottom 10 values of Total Recovered cases as cumulative counts
+          for any date <br />
+          covdata -r bottom -n 10 -f Total_Recovered -D n --options rank -d
+          15/3/2020
+        </p>
+
+        <p>
+          #get top 10 values of Total Recovered cases as cumulative counts for
+          any date <br />
+          covdata -r top -n 10 -f Total_Recovered -D n --options rank -d
+          15/3/2020
+        </p>
+
+        <p>
+          #get top 10 values of Total Recovered cases as cumulative counts for
+          all dates if date is not mentioned <br />
+          covdata -r top -n 10 -f Total_Recovered -D n --options rank
+        </p>
+
+        <p>
+          #get cumulative data between two given dates <br />
+          covdata -d 15/3/2020-30/3/2020 -f Total_Recovered --options
+          cumulative_between_date #Total recovered cumulative data between
+          15/3/2020 and 30/3/2020
+        </p>
+
+        <p>
+          #get daily count between two dates <br />
+          covdata -d 15/3/2020-30/3/2020 -f Total_Confirmed --options
+          count_between_date #Daily count data between 15/3/2020 and 30/3/2020
+        </p>
+
+        <p>
+          #graph of whole data <br />
+          covdata -g whole -D y --options graph #plot the whole data with dailly
+          counts
+        </p>
+
+        <p>
+          #graph whole data of any state <br />
+          covdata -g whole -D y -s wb --options graph #plots the daily graph of
+          west bengal
+        </p>
+
+        <p>
+          #graph of 1st n data of any selected state ,if state not mentioned all
+          together state count will be shown <br />
+          covdata -g head -n 15 -D y -s wb --options graph #plots 1st 15 days
+          daily counts for west bengal <br />
+          covdata -g tail -n 15 -D n -s wb --options graph #plots last 15 days
+          cumulative counts for west bengal
+        </p>
+
+        <p>
+          #get a daily or cumulative graph between two dates for any states
+          <br />
+          covdata -g graph_by_date -d 25/3/2020-4/4/2020 -D y -s mh --options
+          graph
+        </p>
+
+        <p>
+          #if state is not mentioned graph is shown for all states together
+          <br />
+          covdata -g graph_by_date -d 25/3/2020-4/4/2020 -D y --options graph
+        </p>
+
+        <p>
+          #latitude vs confirmed cases <br />
+          covdata -g latitude --options graph
+        </p>
+
+        <p>
+          #similarly -g tail will work same and please use state code.Terminal
+          feature demonstrates some methods only that are written in --options
+          flag(type 'covdata -h' to see options). -H -T and --save flag can be
+          used for every method that returns a dataframe not a graph.
+        </p>
+      </div>
+      <h2>Covidindia Server</h2>
+      <div class="server_details">
+        User can up a local server where all the data that are collected from
+        source are given in an interactive way.
+      </div>
+      <h3>How to start the server</h3>
+      <div class="up_server">
+        <p>covdata cov-server #to start the server with default port</p>
+        <p>covdata cov-server -b :8000 #to bind the port at 8000</p>
+      </div>
+    </div>
+  </body>
+</html>

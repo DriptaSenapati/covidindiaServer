@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en" class="animated fadeIn">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="shortcut icon"
+      type="image/png"
+      href="https://pngimg.com/uploads/coronavirus/coronavirus_PNG46.png"
+    />
+    <link
+      rel="stylesheet"
+      href="{{url_for('static', filename='css/style_analysis.v2.css')}}"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="{{url_for('static', filename='css/nice-select-analysis.css')}}"
+    />
+    <!-- <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script> -->
+    <!-- <script
+      defer
+      src="https://code.jquery.com/jquery-3.5.1.min.js"
+      integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
+      crossorigin="anonymous"
+    ></script> -->
+    <!-- <script defer>
+      window.jQuery ||
+        document.write(
+          '<script defer src="https://code.jquery.com/jquery-3.5.1.min.js"><\/script>'
+        );
+    </script> -->
+    <script
+      defer
+      src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"
+    ></script>
+    <script
+      defer
+      id="MathJax-script"
+      async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
+    ></script>
+    <script
+      defer
+      src="{{url_for('static', filename='js/jquery.nice-select-analysis.js')}}"
+    ></script>
+    <script
+      defer
+      type="text/javascript"
+      src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"
+    ></script>
+    <script
+      defer
+      src="{{url_for('static', filename='js/analysis.v2.js')}}"
+    ></script>
+
+    <title>Covidindia Server</title>
+  </head>
+  <body>
+    <div class="container">
+      <nav class="nav-bar">
+        <div class="hamburger-menu">
+          <div class="line line-1"></div>
+          <div class="line line-2"></div>
+          <div class="line line-3"></div>
+        </div>
+        <ul class="nav-list">
+          <li class="nav-item">
+            <a href="/">Home</a>
+          </li>
+          <li class="nav-item">
+            <a href="{{ url_for('data')}}">Data</a>
+          </li>
+          <li class="nav-item">
+            <a href="{{ url_for('state')}}">Data by State</a>
+          </li>
+          <li class="nav-item">
+            <a href="{{ url_for('demography')}}">Demography</a>
+          </li>
+          <li class="nav-item">
+            <a href="{{ url_for('rank')}}">Ranking</a>
+          </li>
+          <li class="nav-item">
+            <a href="{{ url_for('analysis')}}">Analysis</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+    <div class="plot g-1">
+      <h1>
+        Graph section by state
+      </h1>
+      <div>
+        <span>
+          Select state:
+          <select name="graph" id="graph-state">
+            <option value="All">All</option>
+            <option value="West Bengal">West Bengal</option>
+            <option value="Uttarakhand">Uttarakhand</option>
+            <option value="Uttar Pradesh">Uttar Pradesh</option>
+            <option value="Tripura">Tripura</option>
+            <option value="Telangana">Telangana</option>
+            <option value="Tamil Nadu">Tamil Nadu</option>
+            <option value="Rajasthan">Rajasthan</option>
+            <option value="Punjab">Punjab</option>
+            <option value="Puducherry">Puducherry</option>
+            <option value="Odisha">Odisha</option>
+            <option value="Mizoram">Mizoram</option>
+            <option value="Meghalaya">Meghalaya</option>
+            <option value="Manipur">Manipur</option>
+            <option value="Maharashtra">Maharashtra</option>
+            <option value="Madhya Pradesh">Madhya Pradesh</option>
+            <option value="Ladakh">Ladakh</option>
+            <option value="Kerala">Kerala</option>
+            <option value="Karnataka">Karnataka</option>
+            <option value="Jharkhand">Jharkhand</option>
+            <option value="Jammu and Kashmir">Jammu and Kashmir</option>
+            <option value="Himachal Pradesh">Himachal Pradesh</option>
+            <option value="Haryana">Haryana</option>
+            <option value="Gujarat">Gujarat</option>
+            <option value="Goa">Goa</option>
+            <option value="Delhi">Delhi</option>
+            <option value="Chhattisgarh">Chhattisgarh</option>
+            <option value="Chandigarh">Chandigarh</option>
+            <option value="Bihar">Bihar</option>
+            <option value="Assam">Assam</option>
+            <option value="Arunachal Pradesh">Arunachal Pradesh</option>
+            <option value="Andhra Pradesh">Andhra Pradesh</option>
+            <option value="Andaman and Nicobar Islands"
+              >Andaman and Nicobar Islands</option
+            >
+          </select>
+          Daily(y/n):
+          <select id="daily">
+            <option value="No">No</option>
+            <option value="Yes">Yes</option>
+          </select>
+          Select Condition:
+          <select id="cond-id">
+            <option value="Together">Together</option>
+            <option value="Confirmed">Confirmed</option>
+            <option value="Recovered">Recovered</option>
+            <option value="Deceased">Deceased</option>
+          </select>
+        </span>
+      </div>
+      <div class="range_selector_1">
+        <label for="slider-1" class="label-slider"
+          >Move the slider to see last days</label
+        >
+        <input type="range" min="0" max="60" id="slider-1" value="0" />
+        <span class="silder-value-1" id="value-1">0</span>
+      </div>
+    </div>
+    <div id="chart">
+      <canvas
+        id="graph"
+        width="500"
+        height="400"
+        class="animated bounceInRight"
+      ></canvas>
+    </div>
+
+    <div class="plot g-2">
+      <h1>Comparative study of confirmed to test ratio for all states</h1>
+      <p class="g-2-abstract">
+        Here 'Confirmed to Test Ratio'(F) is evaluated for each state and is
+        then arranged in descending order. After that a bar graph is plotted.
+        This will actually help us to get an insight into the infection
+        situation of each state.
+      </p>
+      <div class="g-2-math">\[F=\frac{Confirmed}{Tested}\times100\]</div>
+      <p class="g-2-abstract">
+        Besides that a total tested count has also been collected and been
+        sorted as descending order. Since only sorting the total tested report
+        by count can't reveal any right information because tested count depends
+        on the population of that state. So, we take ratio totaltested to
+        corresponding population(say,T).
+      </p>
+      <div class="g-2-math">
+        \[T=\frac{Totaltested}{Population}\times10000\]
+      </div>
+      <div class="round">
+        <label class="round_label-1">
+          <input
+            type="radio"
+            value="Tested Data"
+            id="g-2_chk-1"
+            name="selector"
+          />
+          Tested Data
+          <span></span>
+        </label>
+        <label class="round_label-2">
+          <input
+            type="radio"
+            value="F-Ratio"
+            id="g-2_chk-2"
+            name="selector"
+            checked
+          />
+          F-Ratio
+          <span></span>
+        </label>
+      </div>
+    </div>
+    <div class="g chart-2" id="chart1">
+      <canvas id="graph-2" width="500" height="400"></canvas>
+    </div>
+    <div class="plot g-3">
+      <h1>Situation of states in terms of Recovery rate</h1>
+      <p class="g-3-abstract">
+        Here Recovery rate(R) for all states are sorted in descending order and
+        a horizontal bar graph is plotted
+      </p>
+      <div class="g-3-math">\[R=\frac{Recovered}{Confirmed}\times100\]</div>
+    </div>
+    <div class="g chart-3" id="chart2">
+      <canvas id="graph-3" width="500" height="600"></canvas>
+    </div>
+    <div class="plot g-4">
+      <h1>Situation of states in terms of Deceased rate</h1>
+      <p class="g-4-abstract">
+        Here Deceased rate(D) for all states are sorted in descending order and
+        a horizontal bar graph is plotted
+      </p>
+      <div class="g-4-math">\[R=\frac{Deceased}{Confirmed}\times100\]</div>
+    </div>
+    <div class="g chart-4" id="chart3">
+      <canvas id="graph-4" width="500" height="600"></canvas>
+    </div>
+    <div class="plot g-5">
+      <h1>Ages of affected patients</h1>
+      <p class="g-5-abstract">
+        Here all patient's ages are grouped in interval of 10 and a bar graph is
+        plotted to see which age group is more prone to Corona Virus
+        affection.<br />
+        Due to having lots of data, a sample of 1000 is taken.
+      </p>
+    </div>
+    <div class="g chart-5" id="chart4">
+      <canvas id="graph-5" width="500" height="400"></canvas>
+    </div>
+    <div class="plot g-6">
+      <h1>Can states of India actually pull it down?</h1>
+      <p class="g-6-abstract">
+        Let's have a look on moving average means of daily count. From this
+        moving average plot it can be understood that which state in India is
+        actually doing great against Corona virus. Moving average eliminates the
+        irregularity and gives a proper view of daily infection in India.
+      </p>
+      <div class="range_selector_2">
+        <label for="slider-2" class="label-slider"
+          >Move the slider to change moving average days</label
+        >
+        <input type="range" min="12" max="60" id="slider-2" value="12" />
+        <span class="silder-value-2" id="value-2">12</span>
+      </div>
+      <p style="color: #676464; font-family: sans-serif; font-size: 20px;">
+        Click on a legend item to see that particular state
+      </p>
+    </div>
+
+    <div class="g chart-6" id="chart5">
+      <canvas id="graph-6" width="500" height="600"></canvas>
+    </div>
+    <script
+      defer
+      type="text/javascript"
+      src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"
+    ></script>
+  </body>
+</html>

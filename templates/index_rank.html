@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en" class="animated fadeIn">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="shortcut icon"
+      type="image/png"
+      href="https://pngimg.com/uploads/coronavirus/coronavirus_PNG46.png"
+    />
+    <link
+      rel="stylesheet"
+      href="{{url_for('static', filename='css/style_rank.v2.css')}}"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css"
+    />
+    <link
+      href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/ui-lightness/jquery-ui.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="{{url_for('static', filename='css/nice-select-rank.css')}}"
+    />
+    <script
+      defer
+      src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"
+    ></script>
+
+    <script
+      defer
+      src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"
+    ></script>
+
+    <script
+      defer
+      src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"
+    ></script>
+    <script
+      defer
+      src="{{url_for('static', filename='js/jquery.nice-select-rank.js')}}"
+    ></script>
+    <script
+      defer
+      src="{{url_for('static', filename='js/rank.v2.js')}}"
+    ></script>
+    <title>Covidindia Server</title>
+  </head>
+  <body>
+    <div class="container-nav">
+      <nav class="nav-bar">
+        <div class="hamburger-menu">
+          <div class="line line-1"></div>
+          <div class="line line-2"></div>
+          <div class="line line-3"></div>
+        </div>
+        <ul class="nav-list">
+          <li class="nav-item">
+            <a href="/">Home</a>
+          </li>
+          <li class="nav-item">
+            <a href="{{ url_for('data')}}">Data</a>
+          </li>
+          <li class="nav-item">
+            <a href="{{ url_for('state')}}">Data by State</a>
+          </li>
+          <li class="nav-item">
+            <a href="{{ url_for('demography')}}">Demography</a>
+          </li>
+          <li class="nav-item">
+            <a href="{{ url_for('rank')}}">Ranking</a>
+          </li>
+          <li class="nav-item">
+            <a href="{{ url_for('analysis')}}">Analysis</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+
+    <!-- <label for="sheet-content" id="sheet">Choose an option:</label> -->
+    <div id="container">
+      <h1 class="animate__animated animate__zoomIn">
+        Shows Top/bottom ranked states
+        <span style="display: none;">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            version="1.1"
+            x="0px"
+            y="0px"
+            width="40px"
+            height="40px"
+            viewBox="0 0 40 40"
+            enable-background="new 0 0 40 40"
+            xml:space="preserve"
+          >
+            <path
+              fill-rule="evenodd"
+              clip-rule="evenodd"
+              d="M12.011 20c0-0.002 0-0.003 0-0.005 0-4.421 3.578-8.005 7.991-8.005 2.683 0 5.051 1.329 6.5 3.361l1.26-1.644c-1.834-2.254-4.627-3.696-7.76-3.696 -5.519 0-9.994 4.471-10.001 9.989H8.013l3.018 4.013L13.987 20H12.011zM32 20l-2.969-3.985L26 20h1.992c-0.003 4.419-3.579 8.001-7.99 8.001 -2.716 0-5.111-1.36-6.555-3.435l-1.284 1.644c1.832 2.314 4.66 3.803 7.84 3.803 5.524 0 10.001-4.478 10.001-10.001 0-0.004-0.001-0.008-0.001-0.012H32z"
+            />
+          </svg>
+          <div class="status">Update status</div></span
+        >
+      </h1>
+      <span id="selection-section">
+        Rank
+        <select id="kind">
+          <option value="Top">Top</option
+          ><option value="bottom">bottom</option>
+        </select>
+        <input type="text" id="Number" placeholder="days/states" required />
+        days/states by
+        <select id="by">
+          <option value="Total Confirmed">Total Confirmed</option>
+          <option value="Total Recovered">Total Recovered</option>
+          <option value="Total Deceased">Total Death</option> </select
+        >on
+        <select id="condition">
+          <option value="Daily">Daily</option>
+          <option value="Cumulative">Cumulative</option> </select
+        >for date:
+        <input type="text" id="my_date_picker" placeholder="dd/mm/yy" />
+
+        <!-- <span id="state-selector"> -->
+        <select id="state-name">
+          <option value="All">--select state--</option>
+          <option value="West Bengal">West Bengal</option>
+          <option value="Uttarakhand">Uttarakhand</option>
+          <option value="Uttar Pradesh">Uttar Pradesh</option>
+          <option value="Tripura">Tripura</option>
+          <option value="Telangana">Telangana</option>
+          <option value="Tamil Nadu">Tamil Nadu</option>
+          <option value="Rajasthan">Rajasthan</option>
+          <option value="Punjab">Punjab</option>
+          <option value="Puducherry">Puducherry</option>
+          <option value="Odisha">Odisha</option>
+          <option value="Mizoram">Mizoram</option>
+          <option value="Meghalaya">Meghalaya</option>
+          <option value="Manipur">Manipur</option>
+          <option value="Maharashtra">Maharashtra</option>
+          <option value="Madhya Pradesh">Madhya Pradesh</option>
+          <option value="Ladakh">Ladakh</option>
+          <option value="Kerala">Kerala</option>
+          <option value="Karnataka">Karnataka</option>
+          <option value="Jharkhand">Jharkhand</option>
+          <option value="Jammu and Kashmir">Jammu and Kashmir</option>
+          <option value="Himachal Pradesh">Himachal Pradesh</option>
+          <option value="Haryana">Haryana</option>
+          <option value="Gujarat">Gujarat</option>
+          <option value="Goa">Goa</option>
+          <option value="Delhi">Delhi</option>
+          <option value="Chhattisgarh">Chhattisgarh</option>
+          <option value="Chandigarh">Chandigarh</option>
+          <option value="Bihar">Bihar</option>
+          <option value="Assam">Assam</option>
+          <option value="Arunachal Pradesh">Arunachal Pradesh</option>
+          <option value="Andhra Pradesh">Andhra Pradesh</option>
+          <option value="Andaman and Nicobar Islands"
+            >Andaman and Nicobar Islands</option
+          >
+        </select>
+
+        <!-- </span> -->
+      </span>
+      <span>
+        <button class="download" type="submit">
+          Download
+        </button>
+      </span>
+
+      <p>
+        <small
+          ><Note:1
+            >1) Don't specify any date if you want to see data for all
+            dates</Note:1
+          ></small
+        >
+      </p>
+      <p>
+        <small
+          ><Note:2
+            >2) For Cumulative condition and for all dates state name should be
+            provided</Note:2
+          ></small
+        >
+      </p>
+    </div>
+
+    <div id="main-container">
+      <div id="data_show"></div>
+    </div>
+  </body>
+</html>

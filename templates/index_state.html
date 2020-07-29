@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en" class="animated fadeIn">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="shortcut icon"
+      type="image/png"
+      href="https://pngimg.com/uploads/coronavirus/coronavirus_PNG46.png"
+    />
+    <link
+      rel="stylesheet"
+      href="{{url_for('static', filename='css/style_state.v2.css')}}"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="{{url_for('static', filename='css/nice-select-state.css')}}"
+    />
+    <link
+      href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/ui-lightness/jquery-ui.css"
+      rel="stylesheet"
+    />
+    <script
+      defer
+      src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"
+    ></script>
+    <script
+      defer
+      src="{{url_for('static', filename='js/jquery.nice-select-state.js')}}"
+    ></script>
+    <script
+      defer
+      src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js"
+      integrity="sha256-qM7QTJSlvtPSxVRjVWNM2OfTAz/3k5ovHOKmKXuYMO4="
+      crossorigin="anonymous"
+    ></script>
+    <script
+      defer
+      src="{{url_for('static', filename='js/state.v2.js')}}"
+    ></script>
+
+    <title>Covidindia Server</title>
+  </head>
+  <body>
+    <div class="container-nav">
+      <nav class="nav-bar">
+        <div class="hamburger-menu">
+          <div class="line line-1"></div>
+          <div class="line line-2"></div>
+          <div class="line line-3"></div>
+        </div>
+        <ul class="nav-list">
+          <li class="nav-item">
+            <a href="/">Home</a>
+          </li>
+          <li class="nav-item">
+            <a href="{{ url_for('data')}}">Data</a>
+          </li>
+          <li class="nav-item">
+            <a href="{{ url_for('state')}}">Data by State</a>
+          </li>
+          <li class="nav-item">
+            <a href="{{ url_for('demography')}}">Demography</a>
+          </li>
+          <li class="nav-item">
+            <a href="{{ url_for('rank')}}">Ranking</a>
+          </li>
+          <li class="nav-item">
+            <a href="{{ url_for('analysis')}}">Analysis</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+    <div class="area">
+      <ul class="circles">
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+      </ul>
+    </div>
+
+    <!-- <label for="sheet-content" id="sheet">Choose an option:</label> -->
+    <div class="container">
+      <h1 class="animate__animated animate__zoomIn">
+        Collected Data can be filtered by state
+      </h1>
+      <p
+        class="description"
+        style="
+          color: whitesmoke;
+          font-family: 'Playfair Display', serif;
+          font-size: 20px;
+        "
+      >
+        Here the data for every state in India is shown for every date along
+        with district date wise data for every state.
+      </p>
+      <span class="label">State Name</span>
+      <span id="state-selector">
+        <select id="state_name">
+          <option value="All">All</option>
+          <option value="West Bengal">West Bengal</option>
+          <option value="Uttarakhand">Uttarakhand</option>
+          <option value="Uttar Pradesh">Uttar Pradesh</option>
+          <option value="Tripura">Tripura</option>
+          <option value="Telangana">Telangana</option>
+          <option value="Tamil Nadu">Tamil Nadu</option>
+          <option value="Rajasthan">Rajasthan</option>
+          <option value="Punjab">Punjab</option>
+          <option value="Puducherry">Puducherry</option>
+          <option value="Odisha">Odisha</option>
+          <option value="Mizoram">Mizoram</option>
+          <option value="Meghalaya">Meghalaya</option>
+          <option value="Manipur">Manipur</option>
+          <option value="Maharashtra">Maharashtra</option>
+          <option value="Madhya Pradesh">Madhya Pradesh</option>
+          <option value="Ladakh">Ladakh</option>
+          <option value="Kerala">Kerala</option>
+          <option value="Karnataka">Karnataka</option>
+          <option value="Jharkhand">Jharkhand</option>
+          <option value="Jammu and Kashmir">Jammu and Kashmir</option>
+          <option value="Himachal Pradesh">Himachal Pradesh</option>
+          <option value="Haryana">Haryana</option>
+          <option value="Gujarat">Gujarat</option>
+          <option value="Goa">Goa</option>
+          <option value="Delhi">Delhi</option>
+          <option value="Chhattisgarh">Chhattisgarh</option>
+          <option value="Chandigarh">Chandigarh</option>
+          <option value="Bihar">Bihar</option>
+          <option value="Assam">Assam</option>
+          <option value="Arunachal Pradesh">Arunachal Pradesh</option>
+          <option value="Andhra Pradesh">Andhra Pradesh</option>
+          <option value="Andaman and Nicobar Islands"
+            >Andaman and Nicobar Islands</option
+          >
+        </select>
+      </span>
+
+      <span id="Daily_bar">
+        Date: <input type="text" id="my_date_picker" placeholder="dd/mm/yy" />
+        <span class="Daily">Daily Data(y/n):</span>
+        <select id="daily">
+          <option value="No">No</option>
+          <option value="Yes">Yes</option>
+        </select>
+      </span>
+
+      <!-- <button type="button" class="btn" onclick="GetDataState()">
+        Submit
+      </button> -->
+      <span>
+        <button class="download" type="submit">
+          Download
+        </button>
+      </span>
+    </div>
+    <div id="main-container">
+      <div id="data_show"></div>
+    </div>
+  </body>
+</html>

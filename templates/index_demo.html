@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en" class="animated fadeIn">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="shortcut icon"
+      type="image/png"
+      href="https://pngimg.com/uploads/coronavirus/coronavirus_PNG46.png"
+    />
+    <link
+      rel="stylesheet"
+      href="{{url_for('static', filename='css/style_demo.v2.css')}}"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css"
+    />
+    <link
+      href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/ui-lightness/jquery-ui.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="{{url_for('static', filename='css/nice-select-demo.css')}}"
+    />
+
+    <script
+      defer
+      src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"
+    ></script>
+
+    <script
+      defer
+      src="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css"
+    ></script>
+
+    <script
+      defer
+      src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"
+    ></script>
+    <script
+      defer
+      src="{{url_for('static', filename='js/jquery.nice-select-demo.js')}}"
+    ></script>
+    <script
+      defer
+      src="{{url_for('static', filename='js/demo.v2.js')}}"
+    ></script>
+    <title>Covidindia Server</title>
+  </head>
+  <body>
+    <div class="container">
+      <nav class="nav-bar">
+        <div class="hamburger-menu">
+          <div class="line line-1"></div>
+          <div class="line line-2"></div>
+          <div class="line line-3"></div>
+        </div>
+        <ul class="nav-list">
+          <li class="nav-item">
+            <a href="/">Home</a>
+          </li>
+          <li class="nav-item">
+            <a href="{{ url_for('data')}}">Data</a>
+          </li>
+          <li class="nav-item">
+            <a href="{{ url_for('state')}}">Data by State</a>
+          </li>
+          <li class="nav-item">
+            <a href="{{ url_for('demography')}}">Demography</a>
+          </li>
+          <li class="nav-item">
+            <a href="{{ url_for('rank')}}">Ranking</a>
+          </li>
+          <li class="nav-item">
+            <a href="{{ url_for('analysis')}}">Analysis</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+    <div class="area">
+      <ul class="circles">
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+      </ul>
+    </div>
+    <div class="option-selector">
+      <h1 class="animate__animated animate__zoomIn">
+        Demography Section
+      </h1>
+      <span class="state-selector">
+        Select state:
+        <select id="state-name">
+          <option value="All">All</option>
+          <option value="West Bengal">West Bengal</option>
+          <option value="Uttarakhand">Uttarakhand</option>
+          <option value="Uttar Pradesh">Uttar Pradesh</option>
+          <option value="Tripura">Tripura</option>
+          <option value="Telangana">Telangana</option>
+          <option value="Tamil Nadu">Tamil Nadu</option>
+          <option value="Rajasthan">Rajasthan</option>
+          <option value="Punjab">Punjab</option>
+          <option value="Puducherry">Puducherry</option>
+          <option value="Odisha">Odisha</option>
+          <option value="Mizoram">Mizoram</option>
+          <option value="Meghalaya">Meghalaya</option>
+          <option value="Manipur">Manipur</option>
+          <option value="Maharashtra">Maharashtra</option>
+          <option value="Madhya Pradesh">Madhya Pradesh</option>
+          <option value="Ladakh">Ladakh</option>
+          <option value="Kerala">Kerala</option>
+          <option value="Karnataka">Karnataka</option>
+          <option value="Jharkhand">Jharkhand</option>
+          <option value="Jammu and Kashmir">Jammu and Kashmir</option>
+          <option value="Himachal Pradesh">Himachal Pradesh</option>
+          <option value="Haryana">Haryana</option>
+          <option value="Gujarat">Gujarat</option>
+          <option value="Goa">Goa</option>
+          <option value="Delhi">Delhi</option>
+          <option value="Chhattisgarh">Chhattisgarh</option>
+          <option value="Chandigarh">Chandigarh</option>
+          <option value="Bihar">Bihar</option>
+          <option value="Assam">Assam</option>
+          <option value="Arunachal Pradesh">Arunachal Pradesh</option>
+          <option value="Andhra Pradesh">Andhra Pradesh</option>
+          <option value="Andaman and Nicobar Islands"
+            >Andaman and Nicobar Islands</option
+          >
+        </select>
+      </span>
+      <span id="dis-span"> </span>
+      <span>
+        Date: <input type="text" id="my_date_picker" placeholder="dd/mm/yy" />
+      </span>
+      <span>
+        <button class="download" type="submit">
+          Download
+        </button>
+      </span>
+
+      <p>
+        <small
+          >(Note: Don't specify any date if you want to see data for all
+          dates)</small
+        >
+      </p>
+    </div>
+
+    <div id="main-container">
+      <div class="loader" style="margin-top: 150px;"></div>
+      <div id="data_show"></div>
+    </div>
+  </body>
+</html>

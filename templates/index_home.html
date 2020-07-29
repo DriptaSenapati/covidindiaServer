@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en" class="animated fadeIn">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="shortcut icon"
+      type="image/png"
+      href="https://pngimg.com/uploads/coronavirus/coronavirus_PNG46.png"
+    />
+    <link
+      rel="stylesheet"
+      href="{{url_for('static', filename='css/style.v2.css')}}"
+    />
+    <link
+      rel="stylesheet"
+      href="{{url_for('static', filename='css/nice-select-home.css')}}"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=PT+Sans+Narrow:wght@700&display=swap"
+      rel="stylesheet"
+    />
+    <script
+      defer
+      src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"
+    ></script>
+    <script
+      defer
+      src="{{url_for('static', filename='js/jquery.nice-select-home.min.js')}}"
+    ></script>
+    <script
+      defer
+      src="{{url_for('static', filename='js/main.v2.js')}}"
+    ></script>
+    <title>Covidindia Server</title>
+  </head>
+  <body>
+    <div class="container">
+      <nav class="nav-bar">
+        <div class="hamburger-menu">
+          <div class="line line-1"></div>
+          <div class="line line-2"></div>
+          <div class="line line-3"></div>
+        </div>
+        <ul class="nav-list">
+          <li class="nav-item">
+            <a href="/">Home</a>
+          </li>
+          <li class="nav-item">
+            <a href="{{ url_for('data')}}">Data</a>
+          </li>
+          <li class="nav-item">
+            <a href="{{ url_for('state')}}">Data by State</a>
+          </li>
+          <li class="nav-item">
+            <a href="{{ url_for('demography')}}">Demography</a>
+          </li>
+          <li class="nav-item">
+            <a href="{{ url_for('rank')}}">Ranking</a>
+          </li>
+          <li class="nav-item">
+            <a href="{{ url_for('analysis')}}">Analysis</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+    <div class="area">
+      <ul class="circles">
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+      </ul>
+    </div>
+    <div class="option-selector">
+      <h1 class="animate__animated animate__zoomIn">
+        Shows the collected Data
+      </h1>
+      <!-- <label for="sheet-content" id="sheet">Choose an option:</label> -->
+      <h2
+        style="
+          font-family: 'PT Sans Narrow', sans-serif;
+          padding: 15px;
+          font-style: italic;
+          color: #687784;
+        "
+      >
+        This is the actual dataset which is created and maintained by
+        <a
+          href="https://github.com/kalyaniuniversity/COVID-19-Datasets"
+          target="_blank"
+          style="text-decoration: none;"
+        >
+          University of Kalyani Department of Computer Science & Engineering (KU
+          CSE) and Department of Statistics</a
+        >. Datasets can be downloaded from here or also from github
+      </h2>
+      <span>
+        <select id="sheet-content">
+          <option value="total confirmed">Total Confirmed</option>
+          <option value="total recovered">Total Recovered</option>
+          <option value="total deceased">Total Death</option>
+        </select></span
+      >
+      <span
+        >Daily Data:
+        <select id="daily"
+          ><option value="No">No</option>
+          <option value="Yes">Yes</option>
+        </select>
+      </span>
+      <span>
+        <button class="download" type="submit">
+          Download
+        </button>
+      </span>
+    </div>
+
+    <div id="main-container">
+      <div id="data_show"></div>
+    </div>
+  </body>
+</html>
