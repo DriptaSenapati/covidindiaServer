@@ -17,6 +17,7 @@ from hideFile import hider, saveFile
 import shutil
 from platform import system
 import pickle
+from flask_cachebuster import CacheBuster
 
 
 file_path = os.path.dirname(os.path.abspath(__file__))
@@ -77,6 +78,12 @@ print('Building server')
 app = Flask(__name__, static_url_path='/public')
 app.config["ENV"] = 'development'
 app.config['SERVER_DATA'] = os.path.join(file_path, 'static', 'server_data')
+config = {'extensions': ['.js', '.css', '.csv',
+                         '.jpg', '.png', '.gif'], 'hash_size': 10}
+
+cache_buster = CacheBuster(config=config)
+
+cache_buster.init_app(app)
 
 if system() == 'Windows':
     app.config["CLIENT_DATA"] = os.path.join(file_path, 'static', 'files')

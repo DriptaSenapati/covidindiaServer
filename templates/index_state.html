@@ -10,7 +10,7 @@
     />
     <link
       rel="stylesheet"
-      href="{{url_for('static', filename='css/style_state.v2.css')}}"
+      href="{{url_for('static', filename='style_state.v2.css')}}"
     />
     <link
       href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap"
@@ -22,7 +22,7 @@
     />
     <link
       rel="stylesheet"
-      href="{{url_for('static', filename='css/nice-select-state.css')}}"
+      href="{{url_for('static', filename='nice-select-state.css')}}"
     />
     <link
       href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/ui-lightness/jquery-ui.css"
@@ -34,7 +34,7 @@
     ></script>
     <script
       defer
-      src="{{url_for('static', filename='js/jquery.nice-select-state.js')}}"
+      src="{{url_for('static', filename='jquery.nice-select-state.js')}}"
     ></script>
     <script
       defer
@@ -45,10 +45,7 @@
       integrity="sha256-qM7QTJSlvtPSxVRjVWNM2OfTAz/3k5ovHOKmKXuYMO4="
       crossorigin="anonymous"
     ></script>
-    <script
-      defer
-      src="{{url_for('static', filename='js/state.v2.js')}}"
-    ></script>
+    <script defer src="{{url_for('static', filename='state.v2.js')}}"></script>
 
     <title>Covidindia Server</title>
   </head>
@@ -110,8 +107,8 @@
           font-size: 20px;
         "
       >
-        Here the data for every state in India is shown for every date along
-        with district date wise data for every state.
+        Here, the data for every state in India is shown for every date along
+        with date wise district data.
       </p>
       <span class="label">State Name</span>
       <span id="state-selector">
