@@ -219,19 +219,26 @@ def state():
                     df = df.to_json(orient='records')
                     return Response(df,  mimetype='application/json')
             else:
-                df_confirmed = filter_data.get_count_by_date(
-                    by='confirmed', date=date_name)
-                df_recovered = filter_data.get_count_by_date(
-                    by='recovered', date=date_name)
-                df_death = filter_data.get_count_by_date(
-                    by='death', date=date_name)
-                df = pd.merge(df_confirmed, df_recovered, on='STATE/UT')
-                df = pd.merge(df, df_death, on='STATE/UT')
-                df.columns = ['STATE/UT', 'Confirmed', 'Recovered', 'Death']
-                saveFile(
-                    df, f'{state_name}-{district_name}-({date_name.replace("/","-")})-{daily}')
-                df = df.to_json(orient='records')
-                return Response(df,  mimetype='application/json')
+                if daily == 'Yes':
+                    df_confirmed = filter_data.get_count_by_date(
+                        by='confirmed', date=date_name)
+                    df_recovered = filter_data.get_count_by_date(
+                        by='recovered', date=date_name)
+                    df_death = filter_data.get_count_by_date(
+                        by='death', date=date_name)
+                    df = pd.merge(df_confirmed, df_recovered, on='STATE/UT')
+                    df = pd.merge(df, df_death, on='STATE/UT')
+                    df.columns = ['STATE/UT', 'Confirmed', 'Recovered', 'Death']
+                    saveFile(
+                        df, f'{state_name}-{district_name}-({date_name.replace("/","-")})-{daily}')
+                    df = df.to_json(orient='records')
+                    return Response(df,  mimetype='application/json')
+                else:
+                    df=filter_data.get_dataset_by_date(date=date_name)
+                    saveFile(
+                        df, f'{state_name}-{district_name}-({date_name.replace("/","-")})-{daily}')
+                    df = df.to_json(orient='records')
+                    return Response(df,  mimetype='application/json')
 
         else:
             if district_name == 'All':
