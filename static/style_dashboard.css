@@ -386,7 +386,9 @@ canvas {
     flex-direction: column;
   }
   .dashboard-head {
-    font-size: 21px;
+    font-size: 25px;
+    color: rgb(120 134 142);
+    text-shadow: 4px 2px 4px #e2cfcf;
   }
   .dashboard-section-2 h1 {
     color: #dae8e8;
@@ -473,9 +475,9 @@ canvas {
     margin: auto;
   }
   .main-dashboard div h2 {
-    font-weight: lighter;
+    font-weight: normal;
     padding: 3.5px;
-    font-size: 10px;
+    font-size: 11px;
   }
   .dashborad-section {
     margin: auto;
@@ -483,9 +485,9 @@ canvas {
   .main-dashboard div p {
     /* position: relative;
     top: 40px; */
-    font-size: 8px;
+    font-size: 11px;
     color: rgb(0, 7, 73);
-    font-weight: lighter;
+    font-weight: normal;
   }
   .nav-bar {
     width: 50vw;
