@@ -228,13 +228,14 @@ def state():
                         by='death', date=date_name)
                     df = pd.merge(df_confirmed, df_recovered, on='STATE/UT')
                     df = pd.merge(df, df_death, on='STATE/UT')
-                    df.columns = ['STATE/UT', 'Confirmed', 'Recovered', 'Death']
+                    df.columns = ['STATE/UT',
+                                  'Confirmed', 'Recovered', 'Death']
                     saveFile(
                         df, f'{state_name}-{district_name}-({date_name.replace("/","-")})-{daily}')
                     df = df.to_json(orient='records')
                     return Response(df,  mimetype='application/json')
                 else:
-                    df=filter_data.get_dataset_by_date(date=date_name)
+                    df = filter_data.get_dataset_by_date(date=date_name)
                     saveFile(
                         df, f'{state_name}-{district_name}-({date_name.replace("/","-")})-{daily}')
                     df = df.to_json(orient='records')
@@ -828,7 +829,7 @@ def graphtype(gtype):
             resp = {}
             for i in df.index:
                 resp[df.loc[i, 'CODE']] = df.loc[i, f'{df.columns[-1]}']
-            print(resp)
+            # print(resp)
             g = pd.DataFrame([resp])
         return Response(g.to_json(orient='records'),  mimetype='application/json')
 
